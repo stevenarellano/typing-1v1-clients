@@ -1,7 +1,10 @@
 import React from 'react';
 import axios from 'axios';
+import Game from './game';
 
 const BASEURL = 'https://typing-actuated.herokuapp.com';
+
+const typingString = "Sure! Here's an example React TypeScript component that implements a typing speed test interface";
 
 export default function Main() {
   var config = {
@@ -13,10 +16,5 @@ export default function Main() {
     console.log(res.data);
   }
 
-  return (
-    <div>
-      asdf
-      <button onClick={sendTest}>send</button>
-    </div>
-  );
+  return (<Game text={typingString} />);
 }
