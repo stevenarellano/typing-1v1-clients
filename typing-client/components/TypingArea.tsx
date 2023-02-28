@@ -5,6 +5,7 @@ interface TypingTestProps {
     prompt: string;
     onFinish: () => void;
     onMilestone: () => void;
+    onStart: () => void;
 }
 function cutStringIntoFourParts(inputString: string): Set<number> {
     const length = inputString.length;
@@ -23,19 +24,23 @@ function cutStringIntoFourParts(inputString: string): Set<number> {
     return indices;
 }
 
-const TypingTest: React.FC<TypingTestProps> = ({ prompt, onFinish, onMilestone }) => {
+const TypingTest: React.FC<TypingTestProps> = ({ prompt, onStart, onFinish, onMilestone }) => {
     const [idx, setIdx] = useState(0);
     const [wrong, setWrong] = useState(false);
     const milestoneIndices: Set<number> = cutStringIntoFourParts(prompt);
-
+    const [started, setStarted] = useState(false);
 
     useEffect(() => {
         const handleKeyPress = (event: KeyboardEvent) => {
             const currentChar = prompt.charAt(idx);
-
+            if (!started) {
+                onStart();
+                setStarted(true);
+            }
             if (event.key === currentChar) {
                 setIdx(idx + 1);
                 setWrong(false);
+
 
                 if (idx + 1 === prompt.length) {
                     onFinish();

@@ -25,6 +25,11 @@ const Game = () => {
         setWpm(Math.round(wordCount / ((Date.now() - time[0]) / 1000 / 60)));
     }
 
+    async function onStart() {
+        const newTimeArr = [Date.now(), 0];
+        setTime(newTimeArr);
+        console.log(newTimeArr);
+    }
     async function onMilestone() {
         console.log('milestone reached');
     }
@@ -43,6 +48,7 @@ const Game = () => {
                 <Leaderboard />
                 <TypingArea
                     prompt={game.prompt}
+                    onStart={onStart}
                     onFinish={onFinish}
                     onMilestone={onMilestone} />
                 <Speeds />
