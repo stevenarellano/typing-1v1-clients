@@ -1,1 +1,1 @@
-web: ts-node /hosted-server/src/index.js
+web: cd ./hosted-server && ts-node /src/index.js
