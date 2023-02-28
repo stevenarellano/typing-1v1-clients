@@ -1,1 +1,1 @@
-web: ts-node ./hosted-server/src/index.js
+web: ts-node /hosted-server/src/index.js
