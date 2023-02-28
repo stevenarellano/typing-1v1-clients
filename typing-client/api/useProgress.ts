@@ -4,7 +4,9 @@ import { BASEURL, FinishedRequest, MilestoneRequest } from '../context';
 const useProgress = () => {
 	const uploadFinished = async (finishedRequest: FinishedRequest) => {
 		const res = await axios.post(`${BASEURL}/finished`, finishedRequest);
-		console.log(res.data);
+		const winner = res.data.winner;
+		console.log(winner);
+		console.log(winner ? 'You won!' : 'You lost!');
 		return res.data;
 	};
 
@@ -14,7 +16,7 @@ const useProgress = () => {
 		return res.data;
 	};
 
-	return { uploadFinished };
+	return { uploadFinished, uploadMilestone };
 };
 
 export default useProgress;

@@ -1,18 +1,25 @@
 import { useEffect, useState } from 'react';
 import { Leaderboard, Speeds, TypingArea } from '../components';
 import styles from '../styles/modules/Game.module.scss';
-import { useRecoilValue } from 'recoil';
-import { FinishedRequest, GameInstance, gameState } from '../context';
+import { useRecoilState, useRecoilValue } from 'recoil';
+import { FinishedRequest, FinishedResponse, GameInstance, MilestoneRequest, gameState } from '../context';
 import { useProgress } from '../api';
 
-const prompt = "ello mate";
 const Game = () => {
-    const { uploadFinished } = useProgress();
-    const game: GameInstance = useRecoilValue(gameState);
+    const { uploadFinished, uploadMilestone } = useProgress();
+    const [game, setGame] = useRecoilState(gameState);
     const wordCount = game.prompt.split(' ').length;
 
     const [time, setTime] = useState<number[]>([Date.now(), 0]);
     const [wpm, setWpm] = useState(0);
+
+    function getWinner(isUserWinner: boolean): number {
+        if (isUserWinner == true) {
+            return game.player_id;
+        } else {
+            return game.player_id === 0 ? 1 : 0;
+        }
+    }
 
     async function onFinish() {
         setTime([time[0], Date.now()]);
@@ -21,7 +28,12 @@ const Game = () => {
             wpm
         };
 
-        await uploadFinished(finishedRequest);
+        const isWinner = await uploadFinished(finishedRequest);
+
+        setGame({
+            ...game,
+            winner_id: getWinner(isWinner)
+        });
         setWpm(Math.round(wordCount / ((Date.now() - time[0]) / 1000 / 60)));
     }
 
@@ -30,8 +42,15 @@ const Game = () => {
         setTime(newTimeArr);
         console.log(newTimeArr);
     }
-    async function onMilestone() {
+
+    async function onMilestone(milestoneNumber: number) {
         console.log('milestone reached');
+        const milestoneRequest: MilestoneRequest = {
+            player_id: game.player_id,
+            milestone: milestoneNumber
+        };
+        const res = await uploadMilestone(milestoneRequest);
+
     }
 
     console.log(wordCount);
@@ -42,7 +61,12 @@ const Game = () => {
                 GET TYPING
             </div>
             <div className={styles.info} >
-                {wpm > 0 && <div>WPM: {wpm}</div>}
+                <div>
+                    player_id: {game.player_id}&nbsp;
+                </div>
+                <div>
+                    {wpm > 0 && <div>&nbsp;WPM: {wpm}</div>}
+                </div>
             </div>
             <div className={styles.content}>
                 <Leaderboard />
@@ -54,9 +78,12 @@ const Game = () => {
                 <Speeds />
             </div>
             <div className={styles.footer} >
-                {game.winner !== undefined && <div>winner: player {game.winner + 1}</div>}
+                {/* fix this */}
+                {game.winner_id !== -1 && <div>winner: player {game.winner_id}</div>}
             </div>
         </div>
     );
 };
+
+
 export default Game;

@@ -1,7 +1,7 @@
 interface GameInstance {
 	player_id: number;
 	prompt: string;
-	winner?: number;
+	winner_id: number;
 }
 
 interface FinishedRequest {
@@ -9,9 +9,18 @@ interface FinishedRequest {
 	wpm: number;
 }
 
+interface FinishedResponse {
+	winner: boolean;
+}
+
 interface MilestoneRequest {
 	player_id: number;
 	milestone: number;
 }
 
-export type { GameInstance, FinishedRequest, MilestoneRequest };
+export type {
+	GameInstance,
+	FinishedRequest,
+	MilestoneRequest,
+	FinishedResponse,
+};

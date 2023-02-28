@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 interface TypingTestProps {
     prompt: string;
     onFinish: () => void;
-    onMilestone: () => void;
+    onMilestone: (milestone: number) => void;
     onStart: () => void;
 }
 function cutStringIntoFourParts(inputString: string): Set<number> {
@@ -28,6 +28,7 @@ const TypingTest: React.FC<TypingTestProps> = ({ prompt, onStart, onFinish, onMi
     const [idx, setIdx] = useState(0);
     const [wrong, setWrong] = useState(false);
     const milestoneIndices: Set<number> = cutStringIntoFourParts(prompt);
+    const [milestoneNumber, setMilestoneNumber] = useState(0);
     const [started, setStarted] = useState(false);
 
     useEffect(() => {
@@ -46,7 +47,8 @@ const TypingTest: React.FC<TypingTestProps> = ({ prompt, onStart, onFinish, onMi
                     onFinish();
                     document.removeEventListener('keydown', handleKeyPress);
                 } else if (milestoneIndices.has(idx)) {
-                    onMilestone();
+                    onMilestone(milestoneNumber);
+                    setMilestoneNumber(milestoneNumber + 1);
                 }
             } else if (event.key !== 'Shift' && idx < prompt.length) {
                 setWrong(true);

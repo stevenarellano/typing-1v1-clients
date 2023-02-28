@@ -53,7 +53,7 @@ const Landing: React.FC<LockableInputProps> = ({
             const data = res.data as ConnectResponse;
 
 
-            const gameState: GameInstance = { player_id: data.player_id, prompt: data.msg };
+            const gameState: GameInstance = { player_id: data.player_id, prompt: data.msg, winner_id: -1 };
             setGameState(gameState);
 
             if (data.starting) {
