@@ -1,0 +1,145 @@
+@use '../global/variables' as *;
+
+.soldSensor {
+	background: $background;
+	color: $text;
+	padding: 1rem;
+	width: 75%;
+	height: 80vh;
+	overflow-y: scroll;
+
+	transform: translate(-50%, -50%);
+	top: 50%;
+	left: 50%;
+	position: absolute;
+
+	border: solid $primary 1px;
+	border-radius: 1rem;
+
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+
+.soldSensor::-webkit-scrollbar {
+	display: none;
+}
+
+.soldSensor * {
+	font-size: 18px;
+}
+
+.title {
+	color: $text;
+	font-size: 2em;
+	text-align: center;
+	margin-bottom: 20px;
+}
+
+.formGroup {
+	display: flex;
+	flex-direction: column;
+	margin-bottom: 20px;
+}
+
+.formControl {
+	padding: 10px;
+	border-radius: 5px;
+	border: 1px solid $medium-gray;
+	font-size: 1em;
+
+	background-color: $background;
+	border: none;
+	border-bottom: solid $primary 1px;
+	border-radius: 0;
+	color: $text;
+}
+.formControl:focus {
+	outline: none;
+}
+
+.advancedFiltersContainer {
+	margin-top: 20px;
+	width: 100%;
+}
+
+.advancedFiltersTitle {
+	color: $medium-gray;
+	margin-bottom: 10px;
+}
+
+.advancedFilters {
+	display: flex;
+	flex-direction: column;
+
+	justify-content: center;
+	width: 100%;
+}
+
+.advancedFilter {
+	display: flex;
+	gap: 1rem;
+
+	justify-content: center;
+	align-items: center;
+	width: 100%;
+	align-items: center;
+}
+
+.advancedFilter > *:not(:last-child) {
+	flex: 1;
+}
+
+.removeFilter {
+	background: $tertiary;
+	color: $text;
+
+	padding: 0.25rem 0.5rem;
+	border-radius: 50%;
+	font-size: 0.5em;
+	cursor: pointer;
+	&:hover {
+		background: darken($tertiary, 10%);
+	}
+}
+
+.addFilter {
+	background: $primary;
+	color: $text;
+	padding: 10px 20px;
+
+	border-radius: 5px;
+	font-size: 1em;
+	margin-top: 1rem;
+	cursor: pointer;
+	&:hover {
+		background: darken($primary, 10%);
+	}
+}
+
+.error {
+	background-color: #f44336;
+	color: white;
+	padding: 20px;
+	text-align: center;
+	margin-top: 20px;
+	border-radius: 5px;
+}
+
+.submitButton {
+	background: $tertiary;
+	color: $text;
+	padding: 10px 20px;
+	border-radius: 5px;
+	font-size: 1em;
+	margin-top: 20px;
+
+	width: 100%;
+	margin-right: 0;
+
+	cursor: pointer;
+	&:hover {
+		background: darken($tertiary, 10%);
+	}
+}

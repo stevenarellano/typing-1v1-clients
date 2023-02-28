@@ -1,0 +1,87 @@
+@use '../global/variables.scss' as *;
+
+.container {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	padding: 2rem;
+	background-color: $bg-primary;
+}
+
+.title {
+	font-size: 2rem;
+	color: $text-primary;
+	margin-bottom: 1rem;
+}
+
+.subtitle {
+	font-size: 1.5rem;
+	color: $text-secondary;
+	margin-bottom: 2rem;
+}
+
+.phantomButton {
+	font-size: 1.25rem;
+	padding: 0.5rem 1rem;
+	border: none;
+	border-radius: 0.25rem;
+	background-color: $bg-secondary;
+	.container {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		padding: 2rem;
+		background-color: $bg-primary;
+	}
+
+	.title {
+		font-size: 2rem;
+		color: $text-primary;
+		margin-bottom: 1rem;
+	}
+
+	.subtitle {
+		font-size: 1.5rem;
+		color: $text-secondary;
+		margin-bottom: 2rem;
+	}
+
+	.phantomButton {
+		font-size: 1.25rem;
+		padding: 0.5rem 1rem;
+		border: none;
+		border-radius: 0.25rem;
+		background-color: $bg-secondary;
+		color: $text-tertiary;
+		cursor: pointer;
+		transition: background-color 0.2s ease;
+
+		&:hover {
+			background-color: $bg-tertiary;
+		}
+	}
+
+	.loading {
+		pointer-events: none;
+		opacity: 0.5;
+	}
+
+	color: $text-tertiary;
+	cursor: pointer;
+	transition: background-color 0.2s ease;
+
+	&:hover {
+		background-color: $bg-tertiary;
+	}
+}
+
+.loading {
+	pointer-events: none;
+	opacity: 0.5;
+}
+
+.error {
+	font-size: 1.25rem;
+	color: red;
+	margin-top: 1rem;
+}

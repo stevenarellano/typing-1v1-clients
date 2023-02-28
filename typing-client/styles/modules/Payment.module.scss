@@ -1,0 +1,61 @@
+@use '../global/variables.scss' as *;
+.container {
+	height: 100vh;
+	width: 100%;
+	padding: 20px;
+
+	background-image: url('https://dimensionless.in/wp-content/uploads/2018/08/neural_network.png');
+	background-size: cover;
+	background-repeat: no-repeat;
+	background-position: 10% 10%;
+
+	align-items: center;
+	justify-content: center;
+	display: flex;
+	flex-direction: column;
+}
+
+.dataContainer {
+	background: $background;
+	color: $text;
+
+	border: solid 1px $primary;
+	border-radius: 1rem;
+
+	padding: 20px;
+	max-width: 600px;
+	width: 100%;
+}
+
+.data {
+	font-size: 1.2em;
+	margin-bottom: 10px;
+}
+
+.btnContainer {
+	display: flex;
+	justify-content: center;
+	margin-top: 20px;
+}
+
+.btnContainer > *:not(:last-child) {
+	background-color: $primary;
+	&:hover {
+		background: darken($primary, 10%);
+	}
+}
+
+.button {
+	flex: 1;
+
+	background: $secondary;
+	color: $text;
+	padding: 10px 20px;
+	border-radius: 5px;
+	font-size: 1em;
+	margin-right: 10px;
+	cursor: pointer;
+	&:hover {
+		background: darken($secondary, 10%);
+	}
+}
