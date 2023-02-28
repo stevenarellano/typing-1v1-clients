@@ -17,5 +17,5 @@ export default function Main() {
     console.log(res.data);
   }
 
-  return (<Landing onSubmit={() => console.log('whut')} />);
+  return (<Landing />);
 }

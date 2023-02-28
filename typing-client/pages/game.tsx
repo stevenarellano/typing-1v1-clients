@@ -2,18 +2,26 @@ import { useEffect, useState } from 'react';
 import { Leaderboard, Speeds, TypingArea } from '../components';
 import styles from '../styles/modules/Game.module.scss';
 import { useRecoilValue } from 'recoil';
-import { GameInstance, gameState } from '../context';
+import { FinishedRequest, GameInstance, gameState } from '../context';
+import { useProgress } from '../api';
 
 const prompt = "ello mate";
 const Game = () => {
+    const { uploadFinished } = useProgress();
     const game: GameInstance = useRecoilValue(gameState);
     const wordCount = game.prompt.split(' ').length;
 
     const [time, setTime] = useState<number[]>([Date.now(), 0]);
     const [wpm, setWpm] = useState(0);
 
-    function onFinish() {
+    async function onFinish() {
         setTime([time[0], Date.now()]);
+        const finishedRequest: FinishedRequest = {
+            player_id: game.player_id,
+            wpm
+        };
+
+        await uploadFinished(finishedRequest);
         setWpm(Math.round(wordCount / ((Date.now() - time[0]) / 1000 / 60)));
     }
 

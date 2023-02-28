@@ -7,7 +7,7 @@ import { useSetRecoilState } from 'recoil';
 
 
 interface LockableInputProps {
-    onSubmit: (value: string) => void;
+    onSubmit?: (value: string) => void;
 }
 
 interface ConnectResponse {
@@ -16,7 +16,9 @@ interface ConnectResponse {
     msg: string;
 }
 
-const Landing: React.FC<LockableInputProps> = ({ onSubmit }: any) => {
+const Landing: React.FC<LockableInputProps> = ({
+    onSubmit = () => console.log('wut')
+}: any) => {
     const [locked, setLocked] = useState(false);
     const [value, setValue] = useState('');
     const [countdown, setCountdown] = useState(0);
@@ -56,7 +58,7 @@ const Landing: React.FC<LockableInputProps> = ({ onSubmit }: any) => {
 
             if (data.starting) {
                 router.push({
-                    pathname: '/game',
+                    pathname: '/pregame',
                 });
             }
 
@@ -81,17 +83,39 @@ const Landing: React.FC<LockableInputProps> = ({ onSubmit }: any) => {
 
 
     return (
-        <div className={styles.lockableInput}>
-            <form onSubmit={handleSubmit}>
-                <input type="text" value={value} onChange={handleInputChange} disabled={locked} />
-                {!locked && <button type="submit">Lock</button>}
+        <div className={styles.container}>
+            <div>welcome.</div>
+            <form
+                className={styles.form}
+                onSubmit={handleSubmit}
+            >
+                <input
+                    type="text"
+                    value={value}
+                    onChange={handleInputChange}
+                    disabled={locked}
+                    placeholder="password"
+                    className={styles.passwordInput}
+                />
+                {!locked &&
+                    <button
+                        className={styles.lockButton}
+                        type="submit">join</button>
+                }
+                {locked && (
+
+                    <div className={styles.lockedContainer}>
+                        <div className={styles.countdown}>
+                            Countdown: {countdown}
+                        </div>
+                        <button
+                            onClick={handleUnlock}
+                            className={styles.unlockButton}>
+                            X
+                        </button>
+                    </div>
+                )}
             </form>
-            {locked && (
-                <div>
-                    Countdown: {countdown}
-                    <button onClick={handleUnlock}>X</button>
-                </div>
-            )}
         </div>
     );
 };

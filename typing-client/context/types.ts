@@ -4,4 +4,9 @@ interface GameInstance {
 	winner?: number;
 }
 
-export type { GameInstance };
+interface FinishedRequest {
+	player_id: number;
+	wpm: number;
+}
+
+export type { GameInstance, FinishedRequest };
