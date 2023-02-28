@@ -1,6 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import Game from './game';
+import Landing from './landing';
 
 const BASEURL = 'https://typing-actuated.herokuapp.com';
 
@@ -16,5 +17,5 @@ export default function Main() {
     console.log(res.data);
   }
 
-  return (<Game text={typingString} />);
+  return (<Landing onSubmit={() => console.log('whut')} />);
 }

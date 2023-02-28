@@ -1,30 +1,28 @@
-import React, { useState } from "react";
-import styles from "../styles/modules/Game.module.scss";
+import { useState } from 'react';
+import { Leaderboard, Speeds, TypingArea } from '../components';
+import styles from '../styles/modules/Game.module.scss';
 
-interface TypingTestProps {
-    text: string;
-}
-
-const a = "./pages/game.tsx";
-
-
-const TypingTest: React.FC<TypingTestProps> = ({ text }) => {
-    const [idx, setIdx] = useState(3);
-    const [wrong, setWrong] = useState(true);
+const prompt = "ello mate";
+const Game = () => {
+    const [userInfo, setUserInfo] = useState({});
 
     return (
-        <div>
-            <div className={styles.correct}>{a.slice(0, idx)}</div>
-            <div className={styles.wrong}>
-                {wrong ? a.slice(idx, idx + 1) : ""}
+        <div className={styles.container}>
+            <div className={styles.header}>
+                TYPER
             </div>
-            <div className={styles.untouched}>
-                {!wrong ? a.slice(idx, idx + 1) : ""}
-                {a.slice(idx + 1, a.length)}
+            <div className={styles.info} >
+                asdf
+            </div>
+            <div className={styles.content}>
+                <Leaderboard />
+                <TypingArea prompt={prompt} />
+                <Speeds />
+            </div>
+            <div className={styles.footer} >
+
             </div>
         </div>
     );
-
 };
-
-export default TypingTest;
+export default Game;

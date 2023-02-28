@@ -1,11 +1,84 @@
+@use '../global/variables.scss' as *;
+
+.container {
+	height: 100vh;
+	width: 100vw;
+
+	padding: 4rem 0;
+
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+
+.header {
+	font-size: 5rem;
+	font-weight: bold;
+
+	width: 100%;
+
+	padding: 0 1rem;
+}
+
+.content {
+	width: 100%;
+
+	display: flex;
+	justify-content: center;
+	align-items: center;
+
+	flex: 1;
+}
+
+.content > * {
+	height: 100%;
+}
+
+.leaderboard,
+.speeds {
+	width: 20%;
+
+	border-top: 2px solid black;
+	border-bottom: 2px solid black;
+}
+
+.info {
+	width: 100%;
+
+	padding: 0 1rem;
+
+	border-top: 2px solid black;
+}
+
+.typingArea {
+	width: 60%;
+
+	padding: 1rem;
+
+	border: 2px solid black;
+
+	& > * {
+		letter-spacing: 0.1rem;
+		display: inline;
+	}
+}
+
+.chosenWrong {
+	background-color: #ffcccb;
+}
+
 .wrong {
-	background-color: red;
+	background-color: #ff6961;
+}
+
+.current {
+	background-color: #aec6cf;
 }
 
 .correct {
-	background-color: green;
+	color: #77dd77;
 }
 
 .untouched {
-	background-color: blue;
 }
