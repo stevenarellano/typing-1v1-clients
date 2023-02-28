@@ -1,9 +1,15 @@
+import React from 'react';
 import axios from 'axios';
 
+const BASEURL = 'https://typing-actuated.herokuapp.com';
+
 export default function Main() {
+  var config = {
+    headers: { 'Access-Control-Allow-Origin': '*' }
+  };
 
   async function sendTest() {
-    const res = await axios.get('http://localhost:3000/api');
+    const res = await axios.get(`${BASEURL}/api`, config);
     console.log(res.data);
   }
 
