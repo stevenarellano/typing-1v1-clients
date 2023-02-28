@@ -3,9 +3,10 @@ import { useEffect, useState } from 'react';
 
 interface TypingTestProps {
     prompt: string;
+    onFinish: () => void;
 }
 
-const TypingTest: React.FC<TypingTestProps> = ({ prompt }) => {
+const TypingTest: React.FC<TypingTestProps> = ({ prompt, onFinish }) => {
     const [idx, setIdx] = useState(0);
     const [wrong, setWrong] = useState(false);
     const [startTime, setStartTime] = useState<number | null>(null);
@@ -25,7 +26,7 @@ const TypingTest: React.FC<TypingTestProps> = ({ prompt }) => {
                 setWrong(false);
 
                 if (idx + 1 === prompt.length) {
-                    setEndTime(Date.now());
+                    onFinish();
                     document.removeEventListener('keydown', handleKeyPress);
                 }
             } else if (event.key !== 'Shift' && idx < prompt.length) {

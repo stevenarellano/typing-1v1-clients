@@ -1,17 +1,27 @@
 import styles from '../styles/modules/Landing.module.scss';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
+import { BASEURL, GameInstance, gameState } from '../context';
+import { useRouter } from 'next/router';
+import { useSetRecoilState } from 'recoil';
 
 
 interface LockableInputProps {
     onSubmit: (value: string) => void;
 }
 
+interface ConnectResponse {
+    starting: boolean;
+    player_id: number;
+    msg: string;
+}
+
 const Landing: React.FC<LockableInputProps> = ({ onSubmit }: any) => {
     const [locked, setLocked] = useState(false);
     const [value, setValue] = useState('');
     const [countdown, setCountdown] = useState(0);
-
+    const router = useRouter();
+    const setGameState = useSetRecoilState(gameState);
 
     const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setValue(event.target.value);
@@ -21,7 +31,6 @@ const Landing: React.FC<LockableInputProps> = ({ onSubmit }: any) => {
         event.preventDefault();
         if (!locked) {
             setLocked(true);
-            const date = new Date();
             onSubmit(value);
         }
     };
@@ -33,20 +42,41 @@ const Landing: React.FC<LockableInputProps> = ({ onSubmit }: any) => {
 
     useEffect(() => {
         let intervalId: NodeJS.Timeout;
+
+        async function connectToGame() {
+            const res = await axios.post(`${BASEURL}/connect`, {
+                password: value,
+            });
+            console.log(`response: ${JSON.stringify(res.data)}`);
+            const data = res.data as ConnectResponse;
+
+
+            const gameState: GameInstance = { player_id: data.player_id, prompt: data.msg };
+            setGameState(gameState);
+
+            if (data.starting) {
+                router.push({
+                    pathname: '/game',
+                });
+            }
+
+
+        }
         if (locked) {
             intervalId = setInterval(() => {
                 const date = new Date();
                 const secondsTillTry = 10 - date.getSeconds() % 10;
                 setCountdown(secondsTillTry);
                 if (secondsTillTry === 10) {
-                    console.log('game launched');
+                    connectToGame();
+
                 }
-            }, 500);
+            }, 1000);
         }
         return () => {
             if (intervalId !== undefined) clearInterval(intervalId);
         };
-    }, [locked, value, onSubmit, countdown]);
+    }, [locked, value]);
 
 
 
@@ -66,4 +96,4 @@ const Landing: React.FC<LockableInputProps> = ({ onSubmit }: any) => {
     );
 };
 
-export default Landing;
+export default Landing;;
