@@ -9,4 +9,9 @@ interface FinishedRequest {
 	wpm: number;
 }
 
-export type { GameInstance, FinishedRequest };
+interface MilestoneRequest {
+	player_id: number;
+	milestone: number;
+}
+
+export type { GameInstance, FinishedRequest, MilestoneRequest };

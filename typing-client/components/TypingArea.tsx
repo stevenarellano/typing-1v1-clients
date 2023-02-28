@@ -4,21 +4,33 @@ import { useEffect, useState } from 'react';
 interface TypingTestProps {
     prompt: string;
     onFinish: () => void;
+    onMilestone: () => void;
+}
+function cutStringIntoFourParts(inputString: string): Set<number> {
+    const length = inputString.length;
+    const indices = new Set<number>();
+
+    if (length < 4) {
+        return indices;
+    }
+
+    const partitionSize = Math.floor(length / 4);
+
+    for (let i = 1; i <= 3; i++) {
+        indices.add(i * partitionSize);
+    }
+
+    return indices;
 }
 
-const TypingTest: React.FC<TypingTestProps> = ({ prompt, onFinish }) => {
+const TypingTest: React.FC<TypingTestProps> = ({ prompt, onFinish, onMilestone }) => {
     const [idx, setIdx] = useState(0);
     const [wrong, setWrong] = useState(false);
-    const [startTime, setStartTime] = useState<number | null>(null);
-    const [endTime, setEndTime] = useState<number | null>(null);
-    const [timeTaken, setTimeTaken] = useState<number | null>(null);
+    const milestoneIndices: Set<number> = cutStringIntoFourParts(prompt);
+
 
     useEffect(() => {
         const handleKeyPress = (event: KeyboardEvent) => {
-            if (startTime === null) {
-                setStartTime(Date.now());
-            }
-
             const currentChar = prompt.charAt(idx);
 
             if (event.key === currentChar) {
@@ -28,6 +40,8 @@ const TypingTest: React.FC<TypingTestProps> = ({ prompt, onFinish }) => {
                 if (idx + 1 === prompt.length) {
                     onFinish();
                     document.removeEventListener('keydown', handleKeyPress);
+                } else if (milestoneIndices.has(idx)) {
+                    onMilestone();
                 }
             } else if (event.key !== 'Shift' && idx < prompt.length) {
                 setWrong(true);
@@ -39,14 +53,8 @@ const TypingTest: React.FC<TypingTestProps> = ({ prompt, onFinish }) => {
         return () => {
             document.removeEventListener('keydown', handleKeyPress);
         };
-    }, [idx, prompt, startTime]);
+    }, [idx, prompt]);
 
-    useEffect(() => {
-        if (endTime !== null) {
-            const timeTaken = endTime - startTime!;
-            setTimeTaken(timeTaken);
-        }
-    }, [endTime, startTime]);
 
     return (
 
