@@ -7,7 +7,7 @@ const useProgress = () => {
 		const winner = res.data.winner;
 		console.log(winner);
 		console.log(winner ? 'You won!' : 'You lost!');
-		return res.data;
+		return winner;
 	};
 
 	const uploadMilestone = async (milestoneRequest: MilestoneRequest) => {

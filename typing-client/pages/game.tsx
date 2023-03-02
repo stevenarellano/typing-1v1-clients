@@ -29,7 +29,6 @@ const Game = () => {
         };
 
         const isWinner = await uploadFinished(finishedRequest);
-
         setGame({
             ...game,
             winner_id: getWinner(isWinner)
@@ -86,4 +85,4 @@ const Game = () => {
 };
 
 
-export default Game;
+export default Game;;

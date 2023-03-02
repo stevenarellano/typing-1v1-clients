@@ -6,23 +6,23 @@ const io: Server = new Server(3000, {
 		origin: '*',
 	},
 });
-const port = new SerialPort('/dev/cu.usbmodem14201', {
-	baudRate: 115200,
-});
 
 io.on('connection', (socket: any) => {
 	console.log('a user connected');
 	socket.on('helpAvailable', (arg: any) => {
-		// console.log('SOCKET DATA: ' + arg);
-		port.write(`!${arg}`);
+		// port.write(`!${arg}`);
 	});
-
-	// Write a string to the serial port
 });
+
 io.on('msg', function (data: any) {
 	console.log('Data received: ' + data);
 });
 
+/* ALL STUFF BELOW IS FOR THE SERIAL PORT */
+
+const port = new SerialPort('/dev/cu.usbmodem14201', {
+	baudRate: 115200,
+});
 port.on('open', function () {
 	console.log('Serial port opened.');
 });

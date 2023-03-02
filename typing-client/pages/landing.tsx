@@ -16,6 +16,8 @@ interface ConnectResponse {
     msg: string;
 }
 
+const TIMER = 5;
+
 const Landing: React.FC<LockableInputProps> = ({
     onSubmit = () => console.log('wut')
 }: any) => {
@@ -67,9 +69,9 @@ const Landing: React.FC<LockableInputProps> = ({
         if (locked) {
             intervalId = setInterval(() => {
                 const date = new Date();
-                const secondsTillTry = 10 - date.getSeconds() % 10;
+                const secondsTillTry = TIMER - date.getSeconds() % TIMER;
                 setCountdown(secondsTillTry);
-                if (secondsTillTry === 10) {
+                if (secondsTillTry === TIMER) {
                     connectToGame();
 
                 }
