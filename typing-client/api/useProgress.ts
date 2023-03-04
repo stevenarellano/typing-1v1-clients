@@ -17,7 +17,8 @@ const useProgress = () => {
 	};
 
 	const uploadMiss = async () => {
-		await axios.get(`${BASEURL}/miss`);
+		const res = await axios.get(`${BASEURL}/miss`);
+		console.log(res.data);
 	};
 
 	return { uploadFinished, uploadMilestone, uploadMiss };

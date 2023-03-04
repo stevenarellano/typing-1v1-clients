@@ -4,7 +4,7 @@ import SerialPort from 'serialport';
 const socket = io('https://typing-actuated.herokuapp.com/');
 let winner = -1;
 
-const port = new SerialPort('/dev/cu.usbmodem142101', {
+const port = new SerialPort('/dev/cu.usbmodem14401', {
 	baudRate: 115200,
 });
 
