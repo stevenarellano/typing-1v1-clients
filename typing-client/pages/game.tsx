@@ -6,7 +6,7 @@ import { FinishedRequest, FinishedResponse, GameInstance, MilestoneRequest, game
 import { useProgress } from '../api';
 
 const Game = () => {
-    const { uploadFinished, uploadMilestone } = useProgress();
+    const { uploadFinished, uploadMilestone, uploadMiss } = useProgress();
     const [game, setGame] = useRecoilState(gameState);
     const wordCount = game.prompt.split(' ').length;
 
@@ -44,13 +44,9 @@ const Game = () => {
 
     async function onMilestone(milestoneNumber: number) {
         console.log('milestone reached');
-        const milestoneRequest: MilestoneRequest = {
-            player_id: game.player_id,
-            milestone: milestoneNumber
-        };
+        const milestoneRequest: MilestoneRequest = `milestone:${game.player_id}:${milestoneNumber}`;
         const res = await uploadMilestone(milestoneRequest);
-
-    }
+    };
 
     console.log(wordCount);
 
@@ -73,7 +69,9 @@ const Game = () => {
                     prompt={game.prompt}
                     onStart={onStart}
                     onFinish={onFinish}
-                    onMilestone={onMilestone} />
+                    onMilestone={onMilestone}
+                    onMiss={uploadMiss}
+                />
                 <Speeds />
             </div>
             <div className={styles.footer} >

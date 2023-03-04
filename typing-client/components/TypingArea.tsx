@@ -6,6 +6,7 @@ interface TypingTestProps {
     onFinish: () => void;
     onMilestone: (milestone: number) => void;
     onStart: () => void;
+    onMiss: () => void;
 }
 function cutStringIntoFourParts(inputString: string): Set<number> {
     const length = inputString.length;
@@ -24,7 +25,7 @@ function cutStringIntoFourParts(inputString: string): Set<number> {
     return indices;
 }
 
-const TypingTest: React.FC<TypingTestProps> = ({ prompt, onStart, onFinish, onMilestone }) => {
+const TypingTest: React.FC<TypingTestProps> = ({ prompt, onStart, onFinish, onMilestone, onMiss }) => {
     const [idx, setIdx] = useState(0);
     const [wrong, setWrong] = useState(false);
     const milestoneIndices: Set<number> = cutStringIntoFourParts(prompt);
@@ -52,6 +53,7 @@ const TypingTest: React.FC<TypingTestProps> = ({ prompt, onStart, onFinish, onMi
                 }
             } else if (event.key !== 'Shift' && idx < prompt.length) {
                 setWrong(true);
+                onMiss();
             }
         };
 

@@ -16,7 +16,11 @@ const useProgress = () => {
 		return res.data;
 	};
 
-	return { uploadFinished, uploadMilestone };
+	const uploadMiss = async () => {
+		await axios.get(`${BASEURL}/miss`);
+	};
+
+	return { uploadFinished, uploadMilestone, uploadMiss };
 };
 
 export default useProgress;
