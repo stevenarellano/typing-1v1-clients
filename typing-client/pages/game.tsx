@@ -44,7 +44,9 @@ const Game = () => {
 
     async function onMilestone(milestoneNumber: number) {
         console.log('milestone reached');
-        const milestoneRequest: MilestoneRequest = `milestone:${game.player_id}:${milestoneNumber}`;
+        const milestoneRequest: MilestoneRequest = {
+            data: `milestone:${game.player_id}:${milestoneNumber}`
+        };
         const res = await uploadMilestone(milestoneRequest);
     };
 

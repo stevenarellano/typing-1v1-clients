@@ -13,7 +13,9 @@ interface FinishedResponse {
 	winner: boolean;
 }
 
-type MilestoneRequest = string;
+interface MilestoneRequest {
+	data: string;
+}
 
 export type {
 	GameInstance,
