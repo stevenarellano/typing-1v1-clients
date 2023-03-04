@@ -11,6 +11,7 @@ const useProgress = () => {
 	};
 
 	const uploadMilestone = async (milestoneRequest: MilestoneRequest) => {
+		console.log(milestoneRequest);
 		const res = await axios.post(`${BASEURL}/milestone`, milestoneRequest);
 		console.log(res.data);
 		return res.data;
