@@ -42,6 +42,9 @@ void slideToP2() {
 }
 
 void loop() {
+  if (finished == 1) {
+    slider_vibrate();
+  }
   SerialEvent();
   digitalWrite(vibrationPin, LOW);
 }
@@ -67,6 +70,7 @@ void SerialEvent() {
       } else {
         slideToP2();
       }
+      finished = 1;
     }
     if (message.startsWith("milestone")) {
       int milestones[] = { milestone0, milestone1, milestone2 };
@@ -123,6 +127,16 @@ void sliderInactive() {
   digitalWrite(6, LOW);
   analogWrite(3, 0);  //define Speed
   delay(1000);        //wait for 1000ms
+}
+
+void slider_vibrate() {
+  digitalWrite(5, LOW);
+  digitalWrite(6, HIGH);
+  analogWrite(3, 255);  //define Speed
+  delay(10);            //wait for 1000ms
+  digitalWrite(5, HIGH);
+  digitalWrite(6, LOW);
+  delay(10);
 }
 
 void reset() {
