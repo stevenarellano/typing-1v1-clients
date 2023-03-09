@@ -5,8 +5,7 @@
 	"license": "MIT",
 	"scripts": {
 		"reset": "ts-node ./src/index.ts reset",
-		"start": "ts-node ./src/index.ts reset",
-		"serial": "ts-node ./src/index.ts serial"
+		"start": "ts-node ./src/index.ts reset"
 	},
 	"dependencies": {
 		"@types/node": "^18.14.2",

@@ -4,6 +4,7 @@ import styles from '../styles/modules/Game.module.scss';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { FinishedRequest, FinishedResponse, GameInstance, MilestoneRequest, gameState } from '../context';
 import { useProgress } from '../api';
+import Link from 'next/link';
 
 const Game = () => {
     const { uploadFinished, uploadMilestone, uploadMiss } = useProgress();
@@ -79,6 +80,7 @@ const Game = () => {
             <div className={styles.footer} >
                 {/* fix this */}
                 {game.winner_id !== -1 && <div>winner: player {game.winner_id}</div>}
+                <Link className={styles.restartBtn} href='/'>restart</Link>
             </div>
         </div>
     );
